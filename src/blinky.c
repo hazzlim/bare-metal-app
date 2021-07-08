@@ -4,6 +4,26 @@
 #define ALT1_MUX         (1)
 #define MASK(x)          (1UL << x)
 
+/* Counter for SysTick Interrupts */
+volatile uint32_t msTicks = 0U;
+
+/* Called when SysTick Interrupt Occurs */
+void SysTick_Handler(void)
+{
+    if (msTicks != 0U) {
+        msTicks--;
+    }
+}
+
+/* Wait for n SysTick Interrupts */
+void wait(uint32_t n)
+{
+    msTicks = n;
+    while (msTicks != 0U) {
+        __WFI();
+    }
+}
+
 /* Required initialization for RED_LED */
 void init_pins(void)
 {
@@ -21,12 +41,14 @@ void main(void)
 {
     init_pins();
 
+    SysTick_Config(SystemCoreClock / 1000U);
+
     while(1) {
         /* toggle LED */
         GPIOC->PTOR |= MASK(RED_LED_SHIFT);
 
         /* wait */
-        for (int i=0; i<1000000;++i) {}
+        wait(1000);
     }
 }
 
