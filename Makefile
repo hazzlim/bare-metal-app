@@ -1,7 +1,7 @@
 CC = arm-none-eabi-gcc
 OBJCOPY = arm-none-eabi-objcopy
 LD = arm-none-eabi-ld
-CFLAGS = -O0 -c -g -mcpu=cortex-m4 -mthumb
+CFLAGS = -Os -c -g -ffreestanding -mcpu=cortex-m4 -mthumb
 INCFLAGS = -Iinc/CMSIS -Iinc
 LDFLAGS = -T my_startup/K66F_linker_script.ld -Map=build/my/blinky.map
 NXPFLAGS = -O0 -g -mcpu=cortex-m4 -mthumb -Iinc/CMSIS -Iinc -T nxp_startup/MK66FN2M0xxx18_flash.ld -Wl,--gc-sections,-Map=build/nxp/blinky.map,-lc,-lnosys -ffunction-sections -fdata-sections 
