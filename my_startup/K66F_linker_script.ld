@@ -37,5 +37,7 @@ SECTIONS
         _ebss = .;
     }> sram
 
+    _stack_top = ORIGIN(sram) + LENGTH(sram);
+
 }
 
