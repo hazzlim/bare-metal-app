@@ -30,6 +30,7 @@ void SysTick_Handler(void) __attribute__ ((weak, alias("Default_Handler")));
 uint32_t * vector_table[256] __attribute__((section(".isr_vector"))) = {
     (uint32_t *)    &_stack_top,      // stack pointer
     (uint32_t *)    &Reset_Handler,
+    (uint32_t *)    &NMI_Handler,
     (uint32_t *)    &HardFault_Handler,
     (uint32_t *)    &MemManage_Handler,
     (uint32_t *)    &BusFault_Handler,
