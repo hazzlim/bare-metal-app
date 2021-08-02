@@ -4,11 +4,9 @@ ENTRY(Reset_Handler)
 /* Specify the Memory Areas */
 MEMORY
 {
-    flash       (RX)  : ORIGIN = 0x00000000, LENGTH = 2048K    /* 0x00200000 */
-    sram      (RWX) : ORIGIN = 0x1FFF0000, LENGTH = 256K     /* 0x00040000 */
+    flash   (RX)  : ORIGIN = 0x00000000, LENGTH = 2048K
+    sram    (RWX) : ORIGIN = 0x1FFF0000, LENGTH = 256K
 }
-
-STACK_SIZE = 0x0400;
 
 /* Define Output Sections */
 SECTIONS
@@ -19,7 +17,6 @@ SECTIONS
         KEEP(*(.isr_vector))  /* Vector table */
         KEEP(*(.flash_config))
         *(.text)
-        *(.rodata)
         . = ALIGN(4);
         _etext = .;
     }> flash
