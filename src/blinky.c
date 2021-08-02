@@ -4,6 +4,8 @@
 #define ALT1_MUX         (1)
 #define MASK(x)          (1UL << x)
 
+#define BLINKING_RATE    500
+
 /* Counter for SysTick Interrupts */
 volatile uint32_t msTicks = 0U;
 
@@ -41,6 +43,7 @@ void main(void)
 {
     init_pins();
 
+    /* Configure SysTick Interrupt every millisecond */
     SysTick_Config(SystemCoreClock / 1000U);
 
     while(1) {
@@ -48,7 +51,7 @@ void main(void)
         GPIOC->PTOR |= MASK(RED_LED_SHIFT);
 
         /* wait */
-        wait(1000);
+        wait(BLINKING_RATE);
     }
 }
 
