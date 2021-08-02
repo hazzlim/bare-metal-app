@@ -26,7 +26,6 @@ void DebugMonitor_Handler(void) __attribute__ ((weak, alias("Default_Handler")))
 void PendableSrvReq_Handler(void) __attribute__ ((weak, alias("Default_Handler")));
 void SysTick_Handler(void) __attribute__ ((weak, alias("Default_Handler")));
 
-
 unsigned int * vector_table[256] __attribute__((section(".isr_vector"))) = {
     (unsigned int *)    STACK_TOP,      // stack pointer
     (unsigned int *)    &Reset_Handler,
@@ -67,12 +66,12 @@ void Reset_Handler(void)
     * load time position on flash (ROM) to its run time position
     * in SRAM.
     */
-    unsigned int *data_rom_p = &_etext;
+    unsigned int *data_flash_start = &_etext;
     unsigned int *data_ram_start_p = &_sdata;
     unsigned int *data_ram_end_p = &_edata;
 
     while (data_ram_start_p < data_ram_end_p) {
-        *data_ram_start_p++ = *data_rom_p++;
+        *data_ram_start_p++ = *data_flash_start++;
     }
 
     /* Initialize data in the `.bss` section to zeros.
@@ -90,5 +89,4 @@ void Reset_Handler(void)
     /* Loop */
     while(1);
 }
-
 
